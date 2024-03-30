@@ -1,0 +1,5 @@
+Q1. A relative pathway is one that is relative (prefixed) to the one you are currently in, an absolute pathway has to be the complete and direct pathway to where you are looking (This is not prefixed).
+
+Q2. cp ~kss35/public_html/crawl.html ~
+
+Q3. rm ~/crawl.html

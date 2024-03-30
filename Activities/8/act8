@@ -1,0 +1,67 @@
+djm545
+wql25
+
+Activity 8
+
+Q1. 
+size_t size( List l ) 
+{
+	size_t rv = 0 ;
+	while( l != NULL){
+		l = l->next;
+		rv++;
+	}
+	return rv;
+}
+
+Q2.
+size_t count(sNode* n, elem_t t){
+	size_t rv = 0 ;
+	while( n != NULL){
+		if (n->data == t) rv++;	
+		n = n->next;	
+	}
+	return rv;
+}
+
+Q3.
+sNode* remove_first(sNode* n, elem_t t ){	
+	size_t len = 1;	
+	sNode* start = n;
+	sNode* previous = n;			
+	
+	while( n != NULL && n->data != t){		
+		len++;
+		previous = n;	
+		n = n->next;	
+	}
+	if (n->data == t) {
+		previous->next = n->next;
+		previous = n;
+		n = n->next;
+		free (previous);
+		previous = NULL;
+	}
+	return (len == 1) ? n : start;
+}
+
+Q4.
+sNode* remove_all(sNode* n, elem_t t){
+	size_t len = 1;	
+	sNode* start = n;
+	sNode* previous = n;			
+	
+	while( n != NULL ){		
+		if (n->data == t) {
+			previous->next = n->next;
+			previous = n;
+			n = n->next;
+			start = (len == 1) ? n : start;
+			free (previous);	
+		}
+		len++;
+		previous = n;	
+		n = n->next;	
+	}	
+	return start;
+}

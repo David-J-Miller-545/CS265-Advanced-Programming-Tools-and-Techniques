@@ -1,0 +1,103 @@
+%
+% Kurt Schmidt
+%
+% pdfTeX 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian)
+% kpathsea version 6.2.1
+%
+% EDITOR:  tabstop=2, cols=120
+%
+% TODO:
+%		- Interfaces (data hiding) in a non-OO language
+%		- Basic string functions, reinforce no assignment
+%
+
+\documentclass{article}
+
+\usepackage{outlines}
+
+\newcommand{\myName}{Kurt Schmidt}
+\newcommand{\myInst}{Skipjack Solutions}
+
+%--------------  DOCUMENT  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\title{Activity 2}
+\author\myName
+%\institute\myInst
+
+\begin{document}
+\maketitle
+
+
+\begin{outline}
+
+\1 SSH
+	\2 non-interactive (batch) logins
+
+\1 Links
+	\2 Hard links
+		\3 only on files (not dirs)
+		\3 can't span partitions
+	\2 Soft links
+		\3 just like shortcuts
+		\3 really just a text file
+
+\1 find
+	\2 start dir(s)
+
+	\2 tests
+		\3 type
+		\3 mtime
+		\3 newer
+		\3 group
+		\3 mode
+
+	\2 actions
+		\3 delete
+		\3 exec
+		\3 print
+		\3 ls
+
+	\2 operators
+		\3 and -a
+		\3 or -o
+		\3 not
+		\3 ()
+
+\1 vim
+	\2 Remote editing
+		\3 \texttt{\$ vim scp://kschmidt@tux.cs.drexel.edu//~kschmidt/.bashrc}
+		\3 \texttt{:e scp://kschmidt@tux.cs.drexel.edu//~kschmidt/.bashrc}
+	\2 Split windows
+		\3 Navigation
+		\3 Resizing
+		\3 Directory Editing
+	\2 Buffers v. Tabs
+		\3  See \texttt{vim\_tabs}
+		\3  think of tabs as workspaces, sorta.  Layouts
+		\3	\texttt{:set hidden}
+	\2 Marks
+	\2 Visual mode
+	\2 Repeat last command
+		\3 \texttt{.}
+	\2 Folds
+		\3 \texttt{:fo}
+		\3 \texttt{za}
+		\3 \texttt{zo}
+		\3 \texttt{zc}
+	\2 Indent/exdent
+	\2 \texttt{gp}
+		\3 motion
+		\3 inner motion
+	\2 Autocomplete
+		\3 \texttt{ctrl-n}
+		\3 \texttt{ctrl-p}
+		\3 \texttt{ctrl-y}
+	\2 Variable declarations
+		\3 \texttt{gd}
+		\3 \texttt{ctrl-w d}
+	\2 \texttt{:r}
+	\2 \texttt{:r!}
+
+\end{outline}
+
+\end{document}

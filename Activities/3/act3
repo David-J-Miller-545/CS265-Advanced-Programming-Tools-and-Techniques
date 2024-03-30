@@ -1,0 +1,50 @@
+djm545
+asu25
+wql25
+
+Activity 3
+
+Q1.
+knife, hat, and chocolate
+
+Q2.
+Because anything inside of parentheses runs in a subshell thus the x=27 only exists there which is was the
+echo within the x was able to print it and the one outside was not.
+
+Q3.
+The x is still unassinged because we are feeding it directly into the subshell that printx script is running in.
+
+Q4.
+This is because x belongs in our current shell and is not set for export therefore when we run printx the subshell doesn't have
+a variable x within it and doesn't recieve our x from our shell.
+
+Q5.
+$ [[ 12 -lt 3 ]] && echo true
+
+Q6.
+$ (( 12 < 3 )) && echo true
+
+Q7.
+The while loop that used "read" read each file name as is opposed to the for loop which read each individual
+word wiithin the filename seperately. Both printed on new lines.
+
+Q8.
+This time it read every file correctly but listed them seperated by spaces.
+
+Q9.
+$ echo ${#b}
+19
+$ echo ${b:3}
+ha.bravo.charlie
+$ echo ${b:3:5}
+ha.br
+$ echo ${b#*.}
+bravo.charlie
+$ echo ${b##*.}
+charlie
+$ echo ${b%.*}
+alpha.bravo
+$ echo ${b%%.*}
+alpha
+$ echo ${a/.*./.MIDDLE.}
+ah.MIDDLE.say

@@ -1,0 +1,10 @@
+djm545
+
+Activity 5
+
+Q3.
+printf("%s has %d masts, and an overall length of %.0f ft.\n", name, num_masts, loa);
+
+Q4.
+The print statement printed the "!" after the name on the next line because the string also took the newline character
+from when the user pressed Enter.

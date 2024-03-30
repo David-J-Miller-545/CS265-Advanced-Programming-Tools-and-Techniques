@@ -1,0 +1,499 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head>
+	<meta http-equiv='Content-Language' content='en-us'>
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
+	<meta http-equiv='Expires' content='no-expire'>
+	<meta name='Author' content='Galen Long & Kurt Schmidt'>
+	<meta name='Publisher' content='Drexel University'>
+	<meta name='Copyright' content=''>
+	<meta name='Keywords' content='C Unix'>
+	<meta name='Description'
+		content='Activity for CS265'>
+	<meta name='Pagetype' content='Lab'>
+	<meta name='Audience' content='All'>
+	<link rel='shortcut icon' type='image/gif'
+		href='../../../images/drexel.gif'></link>
+	<script language='JavaScript' src='../../courseInfo.js'></script>
+	<script language='JavaScript' src='../../../Scripts/courseFormat.js'></script>
+	<title> Activity 2 -- Pokin' Around on the Command Line </title>
+	<link href='../labs.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body text='#330099' link='#000066' vlink='#000066' alink='#ff0000'
+	background='../../../images/orange.png'>
+
+<h1> Pokin' Around on the Command Line </h1>
+
+<p> Follow along, <!--egg knife-->questions will be denoted with a <span  class='question'>Q</span>.  Fill in answers in
+a text file called <span class='fn'>act2</span>. </p>
+
+<p> You may work in groups, explain to each other what's happening.  Place the username of each group member at the top of
+the file, one per line, yours first, followed by a blank line. </p>
+
+<p> Files for this activity can be found in <span class='fn'>~kss35/public_html/CS265/Activities/2/</span> .  Copy
+them as needed. </p>
+
+<h2> Setup </h2>
+
+<ol>
+	<li> Copy <span class='fn'>sample_dirs.tgz</span> to your activity directory </li>
+	<li> Expand the tarball:
+<div class='cli'>
+<pre> tar xf sample_dirs.tgz </pre>
+</div>
+
+		<p> You should get a subtree in your current directory, looks like this: </p>
+
+<div><samp>
+<pre>Adir/
+&#x251c;&#x2500;&#x2500; Bdir/
+&#x2502;   &#x251c;&#x2500;&#x2500; knots.html
+&#x2502;   &#x251c;&#x2500;&#x2500; knots.md
+&#x2502;   &#x2514;&#x2500;&#x2500; personal.html
+&#x251c;&#x2500;&#x2500; Edir/
+&#x2502;   &#x251c;&#x2500;&#x2500; Fdir/
+&#x2502;   &#x2502;   &#x251c;&#x2500;&#x2500; cci-letterhead.png
+&#x2502;   &#x2502;   &#x251c;&#x2500;&#x2500; memo.pdf
+&#x2502;   &#x2502;   &#x2514;&#x2500;&#x2500; memo.tex
+&#x2502;   &#x2514;&#x2500;&#x2500; hello.c
+&#x2514;&#x2500;&#x2500; index.html</pre>
+</samp></div>
+	</li>
+	<li> Use the <span class='cmd'>tree</span> utility, see that you got the files:
+<div class='cli'>
+<pre> tree Adir </pre>
+</div>
+	</li>
+	<li> Note that <span class='fn'>Adir/Bdir/knots.md</span> is an <!--Notegg curler-->example of Pandoc Markdown </li>
+	<li> Also, <span class='fn'>Adir/Edir/Fdir/memo.tex</span> is a Latex doc using the letter class </li>
+</ol>
+
+<h2> Some Fun </h2>
+<ol>
+	<li> <span class='cmd'>figlet</span> makes banner-style output, has about 15 different fonts.
+
+		<div class='cli'>
+<pre> figlet -fblock "Don't Panic" </pre>
+		</div>
+
+		<div class='cli'>
+<pre> figlet -flean "Don't Panic" </pre>
+		</div>
+	</li>
+
+	<li> <span class='cmd'>fortune</span> shows a fortune from <span class='fn'>/usr/share/games/fortunes/</span>
+
+		<div class='cli'>
+<pre> fortune </pre>
+		</div>
+	</li>
+
+	<li> <span class='cmd'>cowsay</span> gives some levity (or, gravity) to your words:
+
+		<div class='cli'>
+<pre> fortune | cowsay </pre>
+		</div>
+	</li>
+
+	<li> <span class='cmd'>cowsay</span> has, I dunno, 40 or 50 different templates:
+
+		<div class='cli'>
+<pre> cowsay -f dragon-and-cow "Mmmm, barbecue!" </pre>
+		</div>
+	</li>
+
+	<li> <strike><span class='cmd'>sl</span> is a fun little Easter egg-sorta thing, for people who type <span
+		class='cmd'>ls</span> too quickly.</strike>  No, CCI-IT has removed it, too, w/out caring if anybody used it. </li>
+
+<h2> Playing with <span class='cmd'>find</span> </h2>
+
+<p> <span class='cmd'>find</span> takes one or more directories to search recursively, then a sequence of predicates
+(tests) to apply to each file.  Here are a few useful tests: </p>
+
+<table class='center' border='0'>
+	<tr>
+		<th> <span class='cmd'>-type <i>t</i> </th>
+		<td> file type </td>
+		<th> <span class='cmd'>-name <i>t</i> </th>
+		<td> file name (glob) </td>
+		<th> <span class='cmd'>-print <i>t</i> </th>
+		<td> Always true </td>
+	</tr>
+	<tr>
+		<th> <span class='cmd'>-mtime <i>t</i> </th>
+		<td> modification time </td>
+		<th> <span class='cmd'>-size <i>t</i> </th>
+		<td> size d </td>
+		<th> <span class='cmd'>-exec <i>t</i> </th>
+		<td> execute external process </td>
+	</tr>
+</table>
+
+<p> Some file types: </p>
+
+<table class='center' border='0'>
+	<tr>
+		<th> <span class='cmd'>f</span> </th>
+		<td> regular file </td>
+		<th> <span class='cmd'>d</span> </th>
+		<td> directory </td>
+		<th> <span class='cmd'>b</span> </th>
+		<td> block special file </td>
+		<th> <span class='cmd'>c</span> </th>
+		<td> character special file </td>
+	</tr>
+	<tr>
+		<th> <span class='cmd'>l</span> </th>
+		<td> symbolic link </td>
+		<th> <span class='cmd'>s</span> </th>
+		<td> socket </td>
+		<th> <span class='cmd'>p</span> </th>
+		<td> named pipe </td>
+		<th> &nbsp; </th>
+		<td> &nbsp; </td>
+	</tr>
+</table>
+
+<p> E.g. </p>
+
+<div class='code'>
+  $ find Here There -type f -name '*.html' -exec grep -q Waldo {} \; -print
+</div>
+
+<p> recursively searches directories <span class='fn'>Here</span> and <span class='fn'>There</span> for regular HTML
+	files which contain the string Waldo and prints them out.  <span class='code'>{}</span> is replaced by the filename
+	currently considered.  <span class='code'>;</span> ends the <span class='code'>exec</span> test.  We escape it so the
+	shell doesn't see it and think the <span class='code'>find</span> is done. </p>
+
+<ol>
+	<li> Work out a <span class='code'>find</span> command to show the directories starting in the current directory.
+		<script><!--
+			q = 'Show the find command for directories.'
+			question( q )
+		//--></script>
+	</li>
+	<li> Work out the find to spit out HTML files (files that end in <span class='fn'>.html</span>) in the current
+	directory and below.
+		<script><!--
+			q = 'Show the find HTML command'
+			question( q )
+		//--></script>
+	</li>
+	<li> Refer again to the manpage.  Note that find has a logical OR operator which can be used between expressions
+	(tests).  Use this to find all Latex (<span class='fn'>.tex</span>) and HTML (<span class='fn'>.html</span>) files.
+		<script><!--
+			q = 'Add this find to your sheet.'
+			question( q )
+		//--></script>
+	</li>
+	<li> Try this <span class='fn'>find</span>:
+<div class='cli'>
+<pre> find Adir -type f -mtime 3 </pre>
+<!--egg hat-->
+</div>
+		<script><!--
+			q = 'What results did you get?'
+			question( q )
+		//--></script>
+	</li>
+	<li> Now try this <span class='fn'>find</span>:
+<div class='cli'>
+<pre> find Adir -type f -mtime +3 </pre>
+</div>
+		<script><!--
+			q = "What's different?  Why?"
+			question( q )
+		//--></script>
+	</li>
+	<li> Use <span class='fn'>find's</span> <span class='fn'>-exec</span> test with the <span class='fn'>grep</span>
+		utility to find files (not directories) where Waldo might be hiding (files that contain the string <span
+		class='code'>Waldo</span> ).  <!--egg chocolate-->Just the filenames, no output <!--GOTCHA!--> from <span
+		class='fn'>grep</span> 
+
+		<script><!--
+			q = 'Submit this command.'
+			question( q )
+		//--></script>
+	</li>
+</ol>
+
+	<h2> Some Examples of <span class='cmd'>tr</span> </h2>
+
+<ol>
+	<li> <span class='cmd'>tr</span> can translate (or delete) characters.  E.g., offensive fortunes are encoded ROT13 (a
+		simple Ceasar cypher) and stored, to lower the odds somebody is accidentally offended.
+
+		Copy over <span class='fn'>fortune.sample</span>
+	</li>
+
+	<li> <span class='cmd'>cat</span> out this file.  Not so legible </li>
+
+	<li> Decode it:
+		<div class='cli'>
+<pre> cat fortune.sample | tr 'a-zA-Z' 'n-za-mN-ZA-M' </pre>
+		</div>
+
+		<script><!--
+			q = 'Save the output to your answer sheet'
+			question( q )
+		//--></script>
+	</li>
+
+	<li> <span class='cmd'>tr</span> is really helpful.  Consider looking at the directories in your path:
+		<div class='cli'>
+<pre> echo $PATH </pre>
+		</div>
+	</li>
+
+	<li> A long path could be a little tough on the eyeballs.  Let's use <span class='cmd'>tr</span> to break it up a bit:
+
+		<div class='cli'>
+<pre> echo $PATH | tr ':' '\n' </pre>
+		</div>
+	</li>
+
+	<li> Consider <span class='cmd'>wc</span>  Extend the command given here to print out a single number, the number of
+		directories in your path.
+
+		<script><!--
+			q = 'Provide this command on your activity sheet'
+			question( q )
+		//--></script>
+	</li>
+
+	<li> Another utility some of you might find helpful is <span class='cmd'>nl</span>:
+
+		<div class='cli'>
+<pre> cat outline.tex | nl </pre>
+		</div>
+
+		<p> Compare to this one: </p>
+
+		<div class='cli'>
+<pre> cat outline.tex | nl -b a </pre>
+		</div>
+
+		<p> This is new to me, I always used Awk or Perl to insert numbers. </p>
+
+		<p> Oh!  <span class='code'>cat -n</span> will do the same thing.  Always at least 18 ways to skin a cat.  Do NOT
+			get hung up looking for the "right" way. </p>
+
+		<p> Stick this in your brain pan: </p>
+		<blockquote><b><i> Perfect gets in the way of good. </i></b></blockquote>
+	</li>
+</ol>
+
+<h2> Sending mail (and files) from tux </h2>
+
+	<h3> Setup </h3>
+
+	<ol>
+		<li> Copy <span class='fn'>~kss35/Public/.muttrc</span> to your home directory </li>
+		<li> Edit this file in Vim:
+			<ol type='a'>
+				<li> Use forward search, <tt>/</tt>, to find the first <tt>TODO</tt>
+				<li> Modify these couple lines, using your name, and your Drexel email address
+				<li> Hit <tt>n</tt> to take you to the next match </li>
+				<li> Uncomment the line for the signature </li>
+				<li> Hit <tt>n</tt> three more times </li>
+				<li> Fill in this alias with your information </li>
+				<li> Add other aliases, as you please </li>
+				<li> Save the file and exit </li>
+			</ol>
+		</li>
+		<li> Create a text file called <span class='fn'>~/.signature</span>.  Fill it in as you see fit. </li>
+	</ol>
+
+<ol>
+	<li> Start an email to yourself (use your own email address)
+		<div class='cli'>
+<pre> mutt "<i>Your Name</i> &lt;<i>yourid</i>@drexel.edu&gt;" </pre>
+		</div>
+	</li>
+	<li> Type in a Subject when prompted </li>
+	<li> Your email should open in Vim (Mutt looks to your <span class='code'>$EDITOR</span> variable) </li>
+	<li> Leave a blank line below the email header, and type a message to yourself </li>
+	<li> Save and exit the file </li>
+	<li> You can hit <tt>y</tt> to send your message
+
+		<table class='center' style='width:50%;'>
+			<tr>
+				<th colspan='4'> Mutt Send Screen Commands </th>
+			</tr>
+			<tr>
+				<td> <tt>y</tt> </td>
+				<td> send </td>
+				<td> <tt>?</tt> </td>
+				<td> help </td>
+			</tr>
+			<tr>
+				<td> <tt>q</tt> </td>
+				<td> cancel, ask to postpone for later </td>
+				<td> <tt>a</tt> </td>
+				<td> attach a file </td>
+			</tr>
+			<tr>
+				<td> <tt>j k</tt> </td>
+				<td> change current attachment </td>
+				<td> <tt>d</tt> </td>
+				<td> delete current attachment </td>
+			</tr>
+			<tr>
+				<td> <tt>e</tt> </td>
+				<td> edit message </td>
+				<td> <tt>i</tt> </td>
+				<td> invoke <tt>ispell</tt> </td>
+			</tr>
+		</table>
+
+		<p> <b>Note</b>, you can modify the header, add recipients, change the subject, etc., when you edit the message.
+		</p>
+	</li>
+
+	<li> Email yourself, using the alias from the .muttrc file, <span class='fn'>~kss35/Public/.ssh/config</span> file
+		as an attachment, in batch mode:
+		<div class='cli'>
+<pre> mutt -s"Kurt's ssh config file" myself -a ~kss35/Public/.ssh/config &lt; /dev/null </pre>
+		</div>
+
+		<p> <b>Note</b>, if we had not redirected <span class='code'>stdin</span> mutt would've opened the email in an
+			editor. </p>
+
+	</li>
+
+	<li> Email yourself <span class='fn'>~kss35/Public/.ssh/config</span> file as an attachment, composing the body of
+	the email:
+		<div class='cli'>
+<pre> mutt -s"Kurt's ssh config file" myself -a ~kss35/Public/.ssh/config </pre>
+		</div>
+	</li>
+
+	<li> Redirect the body from a text file:
+		<div class='cli'>
+<pre> mutt -s"My .vimrc file" myself &lt; ~/.vimrc </pre>
+		</div>
+		<ul>
+			<li> Note, <strong>only</strong> redirect <u>text</u> files in.  This is not an attachment, but, the
+			body of your message.  Binary files must be encoded (uuencode,
+				base64, etc.), so they contain only printing characters, then attached. </li>
+		</ul>
+	</li>
+</ol>
+
+	<h3> Encrypting with <tt>gpg</tt> </h3>
+
+	<p> You can use <span class='cmd'>gpg</span> to password-encrypt a file. </p>
+
+<ol>
+	<li> Copy <span class='fn'>sensitive_data.sample</span> to your directory </li>
+
+	<li> Encrypt it with a good password:
+		<div class='cli'>
+<pre> gpg -c sensitive_data.sample </pre>
+		</div>
+
+		<p> You'll be prompted for the password.  Remember, <strong>never type passwords as arguments to a command, at the
+		shell prompt!</strong>  The command line is visible through <span class='code'>ps</span> to other users.  </p>
+	</li>
+	
+	<li> Note the new file in your directory:
+		<div class='cli'>
+<pre> ls -ot </pre>
+		</div>
+
+		<script><!--
+			q = 'Submit sensitive_data.sample.gpg to this activity.  Do NOT tell me your password.'
+			question( q )
+		//--></script>
+	</li>
+
+	<li> Take a look at the file.  Careful!  It's binary data.  Contains non-printing (control) characters.  Might mess up
+		your terminal.  Read up on <span class='cmd'>od</span> ; you can view the character codes using hex or octal.  The <span
+		class='code'>-c</span> option shows you printing characters, and octal codes for others.  So, try this:
+
+		<div class='cli'>
+<pre> od -x sensitive_data.sample.gpg </pre>
+		</div>
+
+		<p> , then </p>
+
+		<div class='cli'>
+<pre> od -c sensitive_data.sample.gpg </pre>
+		</div>
+	</li>
+
+	<li> Now decrypt it
+		<div class='cli'>
+<pre> gpg -d sensitive_data.sample.gpg </pre>
+		</div>
+
+		<p> <span class='cmd'>gpg</span> sends the decrypted file to stdout.  You would use file redirection to store it to
+			a file. </p>
+
+		<p> <span class='cmd'>gpg</span> seems to be hooked into your keyring, so, if the password was entered recently, it
+			won't ask again.  Try this: </p>
+	</li>
+
+	<li> Copy over the file <span class='fn'>kurt.gpg</span> </li>
+
+	<li> Decrypt it to a file called <span class='fn'>kurt</span>.  The password is "chocolate" (w/out the quotes) 
+
+		<script><!--
+			q = 'Submit kurt to this activity.'
+			question( q )
+		//--></script>
+	</li>
+</ol>
+
+	<h3> Sending Encrypted Files (and other Binary Data) Using <span class='cmd'>base64</span> </h3>
+
+	<p> In order to send raw data through email, or, embed it in a script or HTML page we need to represent the file using
+		only printing characters.  Email clients encode binary attachments for you, and include encoding information, so it
+		can be decoded at the other end. </p>
+
+	<p> I first used <span class='cmd'>uuencode</span> (unix-to-unix encode).  MIME (Multipurpose Internet Mail Extension)
+		describes i) the content type (text/HTML, text/Python, image/Jpeg, etc.), and ii) the type of binary-to-text
+		encoding, if any.  <span class='cmd'>base64</span> seems to be a common binary-to-text encoder these days. </p>
+
+<ol>
+	<li> Use <span class='cmd'>base64</span> to encode your encrypted file, to make it better suited to transmission:
+		<div class='cli'>
+<pre> base64 sensitive_data.sample.gpg &gt; sensitive_data.sample.gpg.b64 </pre>
+		</div>
+
+		<script><!--
+			q = 'Submit sensitive_data.sample.gpg.b64 to this activity.'
+			question( q )
+		//--></script>
+	</li>
+
+	<li> <span class='cmd'>cat</span> out this file; it's safe, it won't mess up your terminal.  You don't need the <span
+		class='cmd'>od</span> safety filter </li>
+
+	<li> <span class='cmd'>base64</span> encoded this file to use only printing characters, suitable for attaching to an
+		email, or viewing on a terminal, or even publishing.
+
+		<p> Bash scripts, e.g., might embed resources such as music or images or other data right in the script itself,
+			using <span class='cmd'>base64</span>, so that it doesn't have any dependencies, is self-contained and portable.
+			Bash scripts might even embed an native executable. </p>
+
+		<p> Same with an HTML file, storing the data in a Javascript variable. </p>
+
+		<p> TODO:  Bug me.  I'll create an example.  I'm just out of time right at this moment. </p>
+
+		<p> Note, email clients encode attachments for you.  But now you're seeing how you might compose an email message
+			with attachments simply using an editor and some command-line utilities.  You're not quite ready to write your own
+			email client, maybe, but, you're seeing that it's not magic.  You're getting an idea of how email works. </p>
+	</li>
+
+	<li> The encoded file is often larger
+		<script><!--
+			q = 'How much larger, in bytes, is your encoded file, over the raw GPG file?'
+			question( q )
+		//--></script>
+	</li>
+
+
+</body>
+</html>

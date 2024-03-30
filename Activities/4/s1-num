@@ -1,0 +1,50 @@
+ 1  <!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+ 2  <html>
+ 3  <head>
+ 4  	<meta http-equiv="Content-Language" content="en-us">
+ 5  	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+ 6  
+ 7  	<meta name="Author" content="Kurt">
+ 8  	<meta name="Copyright" content="">
+ 9  
+10  	<title>Sample 1, Activity 4 (Sed)</title>
+11  
+12  </head>
+13  
+14  <body>
+15  
+16  Section 1 
+17  
+18  Here's some text, some more content.
+19  
+20  Kurt was born a small child.  Did he remember to bring chocolate?
+21  
+22  This is a line with multiple occurrences of the string "line", online.
+23  
+24  (These next are some verses stolen from The Band's song "The Weight")
+25  
+26     I pulled into Nazareth, was feelin' about half past dead,
+27     I just need some place where I can lay my head
+28     "Hey, mister, can you tell me where a man might find a bed?"
+29     He just grinned and shook my hand, "no" was all he said.
+30     
+31     Catch a cannon ball now to take me down the line,
+32     my bag is sinkin' low and I do believe it's time.
+33     To get back to Miss Fanny, you know she's the only one
+34     who sent me here with her regards for everyone.
+35  
+36  Do you think Miss Fanny has chocolate?
+37  
+38  Section 2
+39  
+40  Some tabular data:
+41  
+42  Honu,ketch,38
+43  Into the Mystic,cutter sloop,42
+44  Summer Breeze,Sloop,40
+45  Tide is Right,cutter ketch,47
+46  Dobby,cat ketch,38
+47  
+48  
+49  </body>
+50  </html>
