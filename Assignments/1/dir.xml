@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<direntry>
+	<index>
+		<file>a1-top</file>
+	</index>
+	<required>
+		<file>a1-test</file>
+		<file>README</file>
+	</required>
+	<other>
+		<file>a1.awk</file>
+		<dir>Dir2</dir>
+		<file>README</file>
+		<file>remove-dirs</file>
+		<file>remove-tmps</file>
+		<file>testa1</file>
+		<file>tmp.7MkfGM</file>
+		<file>tmp.ED3CsW</file>
+		<file>tmp.qiBuxq</file>
+</direntry>

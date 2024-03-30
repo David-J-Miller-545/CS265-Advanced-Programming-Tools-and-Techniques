@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function dirD {
+	if ls | egrep "\<dir.xml\>"; then
+		rm -f dir.xml
+	fi
+	for e in *; do
+		if [ -d $e ]; then
+			cd $e
+			dirD
+			cd ..
+		fi
+	done
+}
+dirD

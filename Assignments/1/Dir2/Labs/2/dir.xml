@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<direntry>
+	<index>
+		<file>index.html</file>
+	</index>
+	<required>
+		<file>file2.1</file>
+		<file>file2.2</file>
+	</required>
+	<other>
+		<dir>Data</dir>
+		<file>file2.1</file>
+		<file>file2.2</file>
+		<file>index.html</file>
+		<file>other1</file>
+		<file>other4</file>
+		<file>other5</file>
+		<file>README</file>
+		<file>tmp.9KXhYv</file>
+		<file>tmp.r429Jj</file>
+		<file>tmp.z0vPD7</file>
+</direntry>

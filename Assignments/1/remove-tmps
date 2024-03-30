@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function dirD {
+	if ls | egrep "tmp.*"; then
+		rm -f tmp.*
+	fi
+	for e in *; do
+		if [ -d $e ]; then
+			cd $e
+			dirD
+			cd ..
+		fi
+	done
+}
+dirD

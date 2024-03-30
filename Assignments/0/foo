@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+########################################################
+# foo - Assignment 0: Minimal Expectations
+#				A Python3 program that converts temperatures
+#				(floats) between Celsius and Fahrenheit.
+#				It will then read an environment variable,
+#				and print a message.	
+#
+# David Miller
+# 10 October, 2023
+#  
+# Python 3.10.12, on
+# GNU/Linux 5.15.0-83-generic
+# 
+########################################################
+
+import os
+import sys
+
+def celciusToFahrenheit (c):
+	'''celciusToFahrenheit - converts celcius values to fahrenheit
+		Input: A float 'c' that represents a value in celcius
+		Returns: A float that is converted from 'c' to fahrenheit.'''
+	return (c * 9/5) + 32
+
+if __name__ == "__main__":
+	output = sys.stdout 	
+	file = sys.stdin if len(sys.argv) == 1 else open(sys.argv[1], "r") 
+	
+	celciusValues = file.readlines()
+	for value in celciusValues:
+		try:
+			output.write(f"{celciusToFahrenheit(float(value)): >6.1f}\n")
+		except:
+			output.write("\n")
+	file.close()
+	
+	csnStatement = "CSN is "	
+	try:
+		csnStatement += os.environ['CSN']
+		csnStatus = "OK"
+		sys.stdout.write(f"{csnStatement: <22}{csnStatus}\n")
+	except:
+		csnStatement += "empty"
+		csnStatus = "FAIL"
+		sys.stdout.write(f"{csnStatement: <20}{csnStatus}\n")
+	output.close()
+

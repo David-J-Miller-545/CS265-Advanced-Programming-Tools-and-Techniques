@@ -1,0 +1,99 @@
+#!/bin/bash
+#---------------------------------------------------------------------------------------------------------------------#
+#	a1-top - Assignment 1: XML Dir
+#		Purpose: Recurse through a subtree of the filesystem and put a file called dir.xml in each directory.
+#		Author: David Miller
+#
+#		GNU bash, version 5.1.16(1)-release (x86_64-pc-linux-gnu)
+#		mawk 1.3.4 20200120
+#	
+
+function read_README {
+	if [ $# -eq 1 ]; then
+		 file=$1 # arguement given is file to check for specific output
+	else
+		exit
+	fi
+
+	if [ -f "README" ] ; then #check if README is in the current directory
+		#check if there is an index in README and if there is add it to dir.xml
+		if egrep "index" README >> /dev/null 2>&1; then printf "\t<index>\n" ; fi
+		sort README | awk 'BEGIN { FS=":" }
+
+		function parse()
+		{
+			for ( i=2; i<=NF; i++ ) {
+				printf( "\t\t<file>" )
+				printf( $i )
+				printf( "</file>\n" )
+			}
+		}
+
+		$1=="index" {
+			parse()
+			printf( "\t</index>\n" )
+		}
+
+		$1=="required" {
+			printf( "\t<required>\n" )
+			parse()
+		}' 
+	fi	
+
+	#check if there is <required> in dir.xml and if there is add the closing arguement to dir.xml
+	if egrep "<required>" "$file" >> /dev/null 2>&1; then printf "\t</required>\n" ; fi
+
+}	
+
+function read_cd {
+	if [ $# -eq 1 ]; then
+		 file=$1  # arguement given is file to check for specific output 
+	else
+		exit
+	fi
+
+	for entity in *; do
+		# if the entity is a file, not "dir.xml", and if it is not already in dir.xml (not index or required)
+		if [ -f $entity ] && [ "$entity" != "$file" ] && ! egrep "$entity" "$file" >> /dev/null 2>&1; then
+			printf "\t\t<file>$entity</file>\n" 
+		# else if the entity is a directory and it is not the current working directory
+		elif [ -d $entity ]; then	
+			printf "\t\t<dir>$entity</dir>\n" 
+			# recursively call this function giving the entity directory
+			a1 "$entity"	
+			cd ..
+		fi
+	done	
+
+	# if "<other>" is within dir.xml, print its closing statement "</other>"
+	if egrep "<other>" "$file" >> /dev/null 2>&1; then printf "\t</other>\n" ; fi
+
+}
+	
+function a1 { # This is the main body of the code that gets called recursively by every directory beyond where we start	
+	if [ $# -eq 1 ]; then
+		cd $1 || exit # if the directory exists go to it, otherwise quit
+	elif [ $# -ne 0 ]; then
+		exit
+	fi
+
+	printf "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n<direntry>\n" > dir.xml #overwrites dir.xml
+
+	read_README dir.xml >> dir.xml 	
+	
+	#if dir.xml is the only file in the directory do not print "<other>" in dir.xml
+	if [ $( ls | wc -l ) -ne 1 ] ; then printf "\t<other>\n" >> dir.xml; fi
+
+	
+	read_cd dir.xml >> dir.xml 	
+	
+	
+	# end the file by closing the <direntry> statement with "</direntry>"
+	printf "</direntry>\n" >> dir.xml
+}
+
+if [ $# -ne 0 ]; then
+   a1 $1
+else
+	a1 # no arguements given so we start this process in the current directory
+fi
