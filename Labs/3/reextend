@@ -1,7 +1,0 @@
-#!/bin/bash
-
-for file in *"$1"; do
-	if [  -f "$file" ]; then
-		mv "$file" "${file%$1}$2"	
-	fi
-done
