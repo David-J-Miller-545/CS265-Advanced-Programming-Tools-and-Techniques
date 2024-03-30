@@ -1,0 +1,35 @@
+David Miller | djm545
+
+Q1.
+It prints true because the character 2 comes before 1 and therefore 2 is greater than 13, thus making that
+statement true and allowing the echo of "true"
+
+Q2.
+Nothing because all of the output was sent to null (the abyss) instead of outputting.
+
+Q3.
+The output is 2 because everything within the let function is an integer thus can not have any decimal points.
+
+Q4.
+The echo returned 0 because the command before was successfully executed.
+
+Q5.
+$ unset x	<- unsets x from the shell
+$ ( x=12 ; echo "5 $x 13" )
+5 12 13		<- x was set and only exists in the let.
+$ echo "5 $x 13"
+5  13			<- x is unset in the shell so it doesn't print.
+
+Q6.
+Item
+Another
+item
+
+Q7.
+Item
+Another item
+
+Q8.
+Item
+Another item
+

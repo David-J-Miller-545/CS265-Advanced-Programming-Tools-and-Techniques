@@ -1,0 +1,12 @@
+#!/bin/bash
+
+for file in *.mp3; do
+	if [  -f "$file" ]; then
+		artist="${file% -*}"
+		songfile="${file#*- }"
+		if [ ! -d "$artist" ]; then
+			mkdir "$artist"
+		fi
+		mv "$file" "$artist/$songfile"	
+	fi
+done

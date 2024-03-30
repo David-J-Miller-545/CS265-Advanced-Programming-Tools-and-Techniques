@@ -1,0 +1,31 @@
+David Miller | djm545
+
+Q1.1)
+a. j < i == 0
+b. ! j < i == 1
+c. (! j) < i == 1
+d. i + j == 1
+e. !i + j == 1
+f. !!i + !j == 1
+g. j && k == 1
+h. i && j || z == 1
+i. i && ( j || z ) == 1
+
+Q2.1)
+5 4 3 2
+
+Q2.2)
+This is an infinite loop of 1's because we are incrementing i so that i can never be less than 1
+
+Q2.3)
+char resp = 'y' ;
+
+while( resp != 'n' && resp != 'N' )
+{
+   // processing...
+
+   printf( "\nEnter another input? (y/[n]) => " ) ;
+   // the space preceding the %c tells scanf to skip whitespace
+   scanf( " %c", &resp ) ;
+} 
+

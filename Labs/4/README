@@ -1,0 +1,13 @@
+Hey so I wanted to real quickly comment on me having to switch languages in the middle of the code, I was doing a lot of
+testing while I was developing and thinking about how I was going to make this script. When I was testing I ran into
+some errors with the sorting and after about 10 minutes of searching the 10k line file I realized that it was ignoring
+the case without the flag to do so, so I went to the man page and then google to see if there was a flag where I could
+make it case sensitive. Well as it turns out, I didn't find any but I found a reddit post saying how the UTF language
+was the thing holding me back and in a little snipbit of code they had "$ LANG=C sort <<< $'a\nb\nA\nB'" they switched
+to C, I have zero clue what this means, I don't know if it is C the high-level programming language or what but this
+seemed to be the only solution I could find. So then I started using it and then realized that squash was acting up and
+keeping the letter keys infront making lines look like "apt apt apt apt pat tap" which wasn't good, so I played and
+switched it back, which seemed to work. I hope I don't get points off for this but at the least I was wondering if you
+could tell me with my grade report why this was acting very funky the way it was. Also I don't know if this was illegal
+or anything for this lab but my script is just a big pipe, sorry if that is not what was intended and please let me know
+what else I could have done. Thank you, sorry for the short essay, and have a great day!

@@ -1,0 +1,61 @@
+Q2
+Escape enabled letter commands, "k" went up one in my previous commands, "W" went to the first letter of the next
+word, and "a" allowed me to append the word and add the letter w to "To" to make it "Two".
+Output: Line Two
+
+Q3
+Same as before but the "~" lowercased the letter I was hovering over which was the "L" of "Line" which made it "line"
+Output: line Two
+
+Q4
+-rw------- 1 djm545 domain users  8060 Oct  1 09:39 funny
+-rwx--x--- 1 djm545 domain users   240 Oct  1 09:39 hello.bash
+-rw------- 1 djm545 domain users 33521 Sep 28 16:12 vi_lab
+
+Q5
+User: Read and Write
+Group: Read
+World: Read
+
+Q6
+User: Read, Write, and Execute
+Group: Read and Execute
+World: Read and Execute
+
+Q7
+Yes
+
+Q8
+Yes
+
+Q9
+No because I do not have the execute permission
+
+Q10
+Either "chmod 7xx hello.bash" or "chmod 5xx hello.bash" where x is any number for group and global permissions. The 7xx
+makes it readable, writable, and executable while the 5xx only makes it readable and executable.
+
+Q11
+Vim didn't allow me to save the file because it was read only.
+
+Q12
+djm545@tux3 Lab1> ls *
+annoy  annoy.cc  funny  hello.bash  itemList  itemList-2cols  lab1  TelecomTruths  UnitTestingPhase  vi_lab
+djm545@tux3 Lab1> ls a*
+annoy  annoy.cc
+djm545@tux3 Lab1> ls *m*
+itemList  itemList-2cols  TelecomTruths
+djm545@tux3 Lab1> ls anno?
+annoy
+djm545@tux3 Lab1> ls annoy?
+ls: cannot access 'annoy?': No such file or directory
+
+Q13
+It created to files to edit, one titled "a" and another titled "space"
+
+Q14
+-h, --human-readable
+-l     use a long listing format
+-t     sort by time, newest first; see --time
+-A, --almost-all
+-d, --directory
